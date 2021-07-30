@@ -1,0 +1,271 @@
+<%def money(num)
+  "$#{num.gsub(/\d(?=(...)+$)/, '\0,')}"
+end
+%>
+<form action="/iks-precio" method="get">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Clúster 1</h5>
+        </div>
+        <div class="ibox-content">
+          <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
+            <table class="table table-stripped">
+              <thead>
+                <tr>
+                  <th>Parámetro</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tipo de Clúster</td>
+                  <td>
+                    <select name="cluster_type" id="cluster_type">
+                      <option value="iks">Kubernetes</option>
+                      <option value="ocp">Openshift</option>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Worker Nodes</td>
+                  <td>
+                    <label for="wn"><input type="number" id="wn" name="wn">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tipo de infraestructura</td>
+                    <td>
+                      <select name="infra_type_wn" id="infra_type_wn">
+                        <option value="dedicated">Dedicado</option>
+                        <option value="shared">Compartido</option>
+                        <option value="bm">Bare Metal</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Flavor</td>
+                    <td>
+                      <select name="flavor_wn" id="flavor_wn">
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Región</td>
+                    <td>
+                      <select name="region" id="region">
+                        <option value="mexico">México</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Clúster 2</h5>
+        </div>
+        <div class="ibox-content">
+          <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
+            <table class="table table-stripped">
+              <thead>
+                <tr>
+                  <th>Parámetro</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tipo de Clúster</td>
+                  <td>
+                    <select name="cluster_type" id="cluster_type">
+                      <option value="iks">Kubernetes</option>
+                      <option value="ocp">Openshift</option>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Worker Nodes</td>
+                  <td>
+                    <label for="wn"><input type="number" id="wn" name="wn">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tipo de infraestructura</td>
+                    <td>
+                      <select name="infra_type_wn" id="infra_type_wn">
+                        <option value="dedicated">Dedicado</option>
+                        <option value="shared">Compartido</option>
+                        <option value="bm">Bare Metal</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Flavor</td>
+                    <td>
+                      <select name="flavor_wn" id="flavor_wn">
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Región</td>
+                    <td>
+                      <select name="region" id="region">
+                        <option value="mexico">México</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  <button type="submit" class="btn btn-outline btn-primary">Quiero mi dimensionamiento</button>
+</div>
+</form>
+  <!--%=respuestaprecio%-->
+  <% if (respuestaprecio != nil and respuestaprecio.size>0) then%>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Dimensionamiento Clúster con Worker Nodes</h5>
+            </div>
+            <div class="ibox-content">
+              <table class="table table-stripped">
+                <thead>
+                  <tr>
+                    <th>Flavor</th>
+                    <th>Tipo de Infraestructura</th>
+                    <th>Workers</th>
+                    <th>Precio Mensual (USD)</th>
+                    <th>Región</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% respuestaprecio.each do |json| %>
+                    <tr>
+                      <td><%= json["flavor"].to_s %></td>
+                      <td><%= json["infra_type"].to_s %></td>
+                      <td><%= json["workers"].to_s %></td>
+                      <td>$<%= json["precio"].to_s %> USD</td>
+                      <td><%= json["region"].to_s %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <!--%=respuestasizing%-->
+  <% if (respuestasizing != nil and respuestasizing.size>0) then%>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Dimensionamiento Clúster más económico</h5>
+            </div>
+            <div class="ibox-content">
+              <table class="table table-stripped">
+                <thead>
+                  <tr>
+                    <th>Flavor</th>
+                    <th>Tipo de Infraestructura</th>
+                    <th>Workers</th>
+                    <th>Precio Mensual (USD)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% respuestasizing.each do |json| %>
+                    <tr>
+                      <td><%= json["flavor"].to_s %></td>
+                      <td><%= json["infra_type"].to_s %></td>
+                      <td><%= json["workers"].to_s %></td>
+                      <td>
+                        <div class="myDIV">$<%= json["precio"].to_s %> USD</div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <!--%=respuestasizingalt%-->
+  <% if (respuestasizingalt != nil and respuestasizingalt.size>0) then%>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Alternativas del Dimensionamiento Clúster</h5>
+            </div>
+            <div class="ibox-content">
+              <table class="table table-stripped">
+                <thead>
+                  <tr>
+                    <th>Flavor</th>
+                    <th>Tipo de Infraestructura</th>
+                    <th>Workers</th>
+                    <th>Precio Mensual (USD)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% respuestasizingalt.each do |json| %>
+                    <tr>
+                      <td><%= json["flavor"].to_s %></td>
+                      <td><%= json["infra_type"].to_s %></td>
+                      <td><%= json["workers"].to_s %></td>
+                      <td>$<%= json["precio"].to_s %> USD</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-12 text-center">
+      <form action="/menu" method="get">
+        <button type="submit" class="btn btn-outline btn-primary">Regresar</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#infra_type_wn").change(function () {
+          var val = $(this).val();
+          if (val == "shared" || val == "dedicated") {
+              $("#flavor_wn").html("<option value='2x4'>2x4</option> <option value='4x16'>4x16</option> <option value='4x32'>4x32</option> <option value='8x32'>8x32</option> <option value='16x16'>16x16</option> <option value='16x32'>16x32</option> <option value='16x64'>16x64</option> <option value='32x32'>32x32</option> <option value='32x64'>32x64</option> <option value='32x128'>32x128</option>");
+          } else {
+              $("#flavor_wn").html("<option value='mb4c.20x192'>mb4c.20x192</option> <option value='mb4c.20x384'>mb4c.20x384</option> <option value='mb4c.20x64'>mb4c.20x64</option> <option value='mb4c.20x64.2x1.9tb.ssd'>mb4c.20x64.2x1.9tb.ssd</option> <option value='mb4c.32x384.3.8tb.ssd'>mb4c.32x384.3.8tb.ssd</option> <option value='mb4c.32x384.6x3.8tb.ssd'>mb4c.32x384.6x3.8tb.ssd</option> <option value='mb4c.32x768.3.8tb.ssd'>mb4c.32x768.3.8tb.ssd</option>");
+          }
+      });
+    
+      $("#btn_calcular").click(function(){
+        var num = $("#milicpu").val();
+        var res = num/1000;
+        $("#rescpu").val(res);
+        $("#cpu").val(res);
+      });
+    });
+  </script>
