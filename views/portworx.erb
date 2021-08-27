@@ -9,7 +9,7 @@ end
     <div class="col-md-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Clúster 1 IKS/OCP</h5>
+          <h5>Clúster Productivo IKS/OCP</h5>
         </div>
         <div class="ibox-content">
           <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
@@ -24,7 +24,7 @@ end
                 <tr>
                   <td>Tipo de Clúster</td>
                   <td>
-                    <select name="cluster_type_prod" id="cluster_type_prod">
+                    <select name="cluster_type_prod" id="cluster_type_prod" required>
                       <option value="iks">Kubernetes</option>
                       <option value="ocp">Openshift</option>
                   </td>
@@ -32,13 +32,13 @@ end
                 <tr>
                   <td>Worker Nodes (min 3)</td>
                   <td>
-                    <label for="wn_prod"><input type="number" id="wn_prod" name="wn_prod" value="3" min="3">
+                    <label for="wn_prod"><input type="number" id="wn_prod" name="wn_prod" value="3" min="3" required>
                     </td>
                   </tr>
                   <tr>
                     <td>Tipo de infraestructura</td>
                     <td>
-                      <select name="infra_type_prod" id="infra_type_prod">
+                      <select name="infra_type_prod" id="infra_type_prod" required>
                         <option value="dedicated">Dedicado</option>
                         <option value="shared">Compartido</option>
                         <option value="bm">Bare Metal</option>
@@ -48,14 +48,14 @@ end
                   <tr>
                     <td>Flavor (min 16x64)</td>
                     <td>
-                      <select name="flavor_prod" id="flavor_prod">
+                      <select name="flavor_prod" id="flavor_prod" required>
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <td>Región</td>
                     <td>
-                      <select name="region_cluster_prod" id="region_cluster_prod">
+                      <select name="region_cluster_prod" id="region_cluster_prod" required>
                         <option value="mexico">México</option>
                         <option value="dallas">Dallas</option>
                       </select>
@@ -70,7 +70,7 @@ end
     <div class="col-md-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Clúster 2 IKS/OCP</h5>
+          <h5>Clúster DR IKS/OCP</h5>
         </div>
         <div class="ibox-content">
           <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
@@ -85,7 +85,7 @@ end
                 <tr>
                   <td>Tipo de Clúster</td>
                   <td>
-                    <select name="cluster_type_dr" id="cluster_type_dr">
+                    <select name="cluster_type_dr" id="cluster_type_dr" required>
                       <option value="iks">Kubernetes</option>
                       <option value="ocp">Openshift</option>
                   </td>
@@ -93,13 +93,13 @@ end
                 <tr>
                   <td>Worker Nodes (min 3)</td>
                   <td>
-                    <label for="wn_dr"><input type="number" id="wn_dr" name="wn_dr" value="3" min="3">
+                    <label for="wn_dr"><input type="number" id="wn_dr" name="wn_dr" value="3" min="3" required>
                     </td>
                   </tr>
                   <tr>
                     <td>Tipo de infraestructura</td>
                     <td>
-                      <select name="infra_type_dr" id="infra_type_dr">
+                      <select name="infra_type_dr" id="infra_type_dr" required>
                         <option value="dedicated">Dedicado</option>
                         <option value="shared">Compartido</option>
                         <option value="bm">Bare Metal</option>
@@ -109,14 +109,14 @@ end
                   <tr>
                     <td>Flavor (min 16x64)</td>
                     <td>
-                      <select name="flavor_dr" id="flavor_dr">
+                      <select name="flavor_dr" id="flavor_dr" required>
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <td>Región</td>
                     <td>
-                      <select name="region_cluster_dr" id="region_cluster_dr">
+                      <select name="region_cluster_dr" id="region_cluster_dr" required>
                         <option value="mexico">México</option>
                         <option value="dallas">Dallas</option>
                       </select>
@@ -135,7 +135,7 @@ end
     <div class="col-md-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Clúster 1 Block Storage</h5>
+          <h5>Block Storage</h5>
         </div>
         <div class="ibox-content">
           <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
@@ -147,21 +147,27 @@ end
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                  <tr>
                   <td>Storage GB</td>
                   <td>
-                    <label for="storage_block"><input type="number" id="storage_block" name="storage_block">
+                    <label for="storage_block"><input type="number" id="storage_block" name="storage_block" required>
                     </td>
                   </tr>
                   <tr>
                     <td>IOPS</td>
                     <td>
-                      <select name="iops" id="iops">
+                      <select name="iops" id="iops" required>
                         <option value=".25">0.25 IOPS/GB</option>
                         <option value="2">2 IOPS/GB</option>
                         <option value="4">4 IOPS/GB</option>
                         <option value="10">10 IOPS/GB</option>
                       </select>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>Replicas del clúster</td>
+                  <td>
+                    <label for="storage_replicas"><input type="number" id="replicas" name="replicas" required>
                     </td>
                   </tr>
                 </tbody>
@@ -174,7 +180,7 @@ end
     <div class="col-md-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Clúster 1 DB for ETCD</h5>
+          <h5>DB for ETCD (1 instancia por cada clúster)</h5>
         </div>
         <div class="ibox-content">
           <h5>NOTAS:*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%</h5>
@@ -189,25 +195,25 @@ end
                   <tr>
                     <td>Ram GB (min 8)</td>
                     <td>
-                    <label for="ram_etcd"><input type="number" id="ram_etcd" name="ram_etcd" value="8" min="8">
+                    <label for="ram_etcd"><input type="number" id="ram_etcd" name="ram_etcd" value="8" min="8" required>
                     </td>
                   </tr>
                   <tr>
                     <td>Storage GB (min 128)</td>
                     <td>
-                    <label for="storage_etcd"><input type="number" id="storage_etcd" name="storage_etcd" value="128" min="128">
+                    <label for="storage_etcd"><input type="number" id="storage_etcd" name="storage_etcd" value="128" min="128" required>
                     </td>
                   </tr>
                   <tr>
                     <td>Cores (min 3)</td>
                     <td>
-                    <label for="cores"><input type="number" id="cores" name="cores" value="3" min="3"> 
+                    <label for="cores"><input type="number" id="cores" name="cores" value="3" min="3" required> 
                     </td>
                   </tr>
                   <tr>
                     <td>Región</td>
                     <td>
-                      <select name="region_etcd" id="region_etcd">
+                      <select name="region_etcd" id="region_etcd" required>
                         <option value="dallas">Dallas</option>
                       </select>
                     </td>
@@ -258,7 +264,7 @@ end
               </tr>
               <tr>
                 <td>Block Storage</td>
-                <td>$<%= respuesta[0]["block_storage"]["preciounidadrestante"] %> USD</td>
+                <td>$<%= respuesta[0]["block_storage"]["preciounidadrestante"] + respuesta[0]["block_storage"]["precio"] %> USD</td>
               </tr>
               <tr>
                 <td>Database for ETCD (2)</td>
@@ -333,11 +339,15 @@ end
                 <td><%= respuesta[0]["block_storage"]["iops"] %> </td>
               </tr> 
               <tr>
-                <td>Almacenamiento (GB)</td>
+                <td>Almacenamiento (GB) (Max <%= respuesta[0]["block_storage"]["maxunit"] %>)</td>
                 <td><%= respuesta[0]["block_storage"]["unidadrestante"] %> </td>
               </tr> 
                 <td>Precio</td>
                 <td>$<%= respuesta[0]["block_storage"]["preciounidadrestante"] %> USD</td>
+              </tr>
+              </tr> 
+                <td>Precio Restante</td>
+                <td>$<%= respuesta[0]["block_storage"]["precio"] %> USD</td>
               </tr>
             </tbody>
           </table>

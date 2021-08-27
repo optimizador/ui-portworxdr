@@ -39,10 +39,12 @@ get '/portworx-precio' do
   logger.info("Clúster prod: tipo de cluster: #{cluster_type_prod}, wn: #{wn_prod}, tipo de infra: #{infra_type_prod}, flavor: #{flavor_prod}, región: #{region_cluster_prod}")
   logger.info("Clúster dr: tipo de cluster: #{cluster_type_dr}, wn: #{wn_dr}, tipo de infra: #{infra_type_dr}, flavor: #{flavor_dr}, región: #{region_cluster_dr}")
   #BLOCK STORAGE
-  storage_block="#{params['storage_block']}"
+  storage_block="#{params['storage_block']}".to_i
   iops="#{params['iops']}"
+  replicas="#{params['replicas']}".to_i
+  total_storage = replicas * storage_block
 
-  logger.info("Storage: storage(GB): #{storage_block}, iops: #{iops}, region: #{region_cluster_prod}")
+  logger.info("Storage: storage(GB): #{total_storage}, iops: #{iops}, region: #{region_cluster_prod}")
   #DB FOR ETCD
   ram_etcd="#{params['ram_etcd']}"
   storage_etcd="#{params['storage_etcd']}"
@@ -53,7 +55,7 @@ get '/portworx-precio' do
 
   urlapi="https://apis-portworx.9sxuen7c9q9.us-south.codeengine.appdomain.cloud"
 
-  request = "#{urlapi}/api/lvl2/portworxsol?tipo_cluster_prod=#{cluster_type_prod}&wn_prod=#{wn_prod}&region_cluster_prod=#{region_cluster_prod}&infra_type_prod=#{infra_type_prod}&flavor_prod=#{flavor_prod}&tipo_cluster_dr=#{cluster_type_dr}&wn_dr=#{wn_dr}&region_cluster_dr=#{region_cluster_dr}&infra_type_dr=#{infra_type_dr}&flavor_dr=#{flavor_dr}&iops=#{iops}&region_storage=#{region_cluster_prod}&storage=#{storage_block}&region_etcd=#{region_etcd}&ram_etcd=#{ram_etcd}&storage_etcd=#{storage_etcd}&cores_etcd=#{cores}"
+  request = "#{urlapi}/api/lvl2/portworxsol?tipo_cluster_prod=#{cluster_type_prod}&wn_prod=#{wn_prod}&region_cluster_prod=#{region_cluster_prod}&infra_type_prod=#{infra_type_prod}&flavor_prod=#{flavor_prod}&tipo_cluster_dr=#{cluster_type_dr}&wn_dr=#{wn_dr}&region_cluster_dr=#{region_cluster_dr}&infra_type_dr=#{infra_type_dr}&flavor_dr=#{flavor_dr}&iops=#{iops}&region_storage=#{region_cluster_prod}&storage=#{total_storage}&region_etcd=#{region_etcd}&ram_etcd=#{ram_etcd}&storage_etcd=#{storage_etcd}&cores_etcd=#{cores}"
   logger.info(request)
   respuesta = RestClient.get "#{request}", {:params => {}}
   respuesta = JSON.parse(respuesta.to_s)
