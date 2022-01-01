@@ -53,7 +53,7 @@ get '/portworx-precio' do
 
   logger.info("DB ETCD: ram(GB): #{ram_etcd}, storage: #{storage_etcd}, cores: #{cores} region: #{region_etcd}")
 
-  urlapi="http://169.57.7.203:30973"
+  urlapi = "https://apis-portworx.ioi17ary7au.us-south.codeengine.appdomain.cloud"
 
   request = "#{urlapi}/api/lvl2/portworxsol?tipo_cluster_prod=#{cluster_type_prod}&wn_prod=#{wn_prod}&region_cluster_prod=#{region_cluster_prod}&infra_type_prod=#{infra_type_prod}&flavor_prod=#{flavor_prod}&tipo_cluster_dr=#{cluster_type_dr}&wn_dr=#{wn_dr}&region_cluster_dr=#{region_cluster_dr}&infra_type_dr=#{infra_type_dr}&flavor_dr=#{flavor_dr}&iops=#{iops}&region_storage=#{region_cluster_prod}&storage=#{total_storage}&region_etcd=#{region_etcd}&ram_etcd=#{ram_etcd}&storage_etcd=#{storage_etcd}&cores_etcd=#{cores}"
   logger.info(request)
