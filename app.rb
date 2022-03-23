@@ -2,6 +2,7 @@ require 'sinatra'
 require 'rest-client'
 require 'thin'
 
+set :timeout: 60
 set(:cookie_options) do
     { :expires => Time.now + 30*60 }
 end
